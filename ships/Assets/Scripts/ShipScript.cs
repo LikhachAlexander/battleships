@@ -9,6 +9,8 @@ public class ShipScript : MonoBehaviour
     public int hp;
     bool dir; // dir: up - true, right - false
 
+    public List<GameObject> currentCollisions = new List<GameObject>(); //tiles that collide with ship
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,9 +90,33 @@ public class ShipScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision col)
     {
-        
+
+        if (col.gameObject.tag == "Tile")
+        {
+            currentCollisions.Add(col.gameObject);
+
+            // Print the entire list to the console.
+            foreach (GameObject gObject in currentCollisions)
+            {
+                print(gObject.name);
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "Tile")
+        {
+            // Remove the GameObject collided with from the list.
+            currentCollisions.Remove(col.gameObject);
+
+            // Print the entire list to the console.
+            foreach (GameObject gObject in currentCollisions)
+            {
+                print(gObject.name);
+            }
+        }
     }
 }

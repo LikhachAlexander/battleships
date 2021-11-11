@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
         ships[8].GetComponent<ShipScript>().setPosition(8, 4, true); //1
         ships[9].GetComponent<ShipScript>().setPosition(1, 6, true); //1
         ships[10].GetComponent<ShipScript>().setPosition(1, 8, true);//1
+        foreach(GameObject ship in ships)
+        {
+            ship.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 
     // Update is called once per frame
