@@ -7,7 +7,7 @@ public class ShipScript : MonoBehaviour
 
     public int size;
     public int hp;
-    public bool dir; // dir: up - true, right - false
+    bool dir; // dir: up - true, right - false
 
     // Start is called before the first frame update
     void Start()
@@ -73,13 +73,19 @@ public class ShipScript : MonoBehaviour
 
 
     // moves ship to a, b pos (1:10)
-    public void setPosition(int a, int b)
+    public void setPosition(int a, int b, bool direction)
     {
+        dir = direction;
         Vector3 startPos = getZeroPos();
         Vector3 diff = new Vector3((a - 1) * 2.25f, 0f, (b - 1) * 2.25f);
         startPos = startPos + diff;
         transform.localPosition = startPos;
-        if (!dir) transform.eulerAngles = new Vector3(0f, 90f, 0f);
+        if (!dir)
+        {
+            Vector3 ang = transform.eulerAngles;
+            ang.y += 90;
+            transform.eulerAngles = ang;
+        }
     }
 
     // Update is called once per frame
