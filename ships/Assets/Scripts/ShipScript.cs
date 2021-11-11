@@ -7,15 +7,14 @@ public class ShipScript : MonoBehaviour
 
     public int size;
     public int hp;
+    public bool isDead = false;
+
     bool dir; // dir: up - true, right - false
 
-    public List<GameObject> currentCollisions = new List<GameObject>(); //tiles that collide with ship
+
+    public List<GameObject> shipTiles = new List<GameObject>(); //tiles that collide with ship
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private Vector3 getZeroPos()
     {
@@ -95,10 +94,10 @@ public class ShipScript : MonoBehaviour
 
         if (col.gameObject.tag == "Tile")
         {
-            currentCollisions.Add(col.gameObject);
+            shipTiles.Add(col.gameObject);
 
             // Print the entire list to the console.
-            foreach (GameObject gObject in currentCollisions)
+            foreach (GameObject gObject in shipTiles)
             {
                 print(gObject.name);
             }
@@ -110,13 +109,23 @@ public class ShipScript : MonoBehaviour
         if (col.gameObject.tag == "Tile")
         {
             // Remove the GameObject collided with from the list.
-            currentCollisions.Remove(col.gameObject);
+            shipTiles.Remove(col.gameObject);
 
             // Print the entire list to the console.
-            foreach (GameObject gObject in currentCollisions)
+            foreach (GameObject gObject in shipTiles)
             {
                 print(gObject.name);
             }
         }
     }
+
+    public void dealDamage()
+    {
+        hp--;
+        if (hp == 0)
+        {
+            isDead = true;
+        }
+    }
+
 }
