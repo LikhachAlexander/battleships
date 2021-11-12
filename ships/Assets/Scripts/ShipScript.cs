@@ -122,6 +122,8 @@ public class ShipScript : MonoBehaviour
         if (hp == 0)
         {
             isDead = true;
+            // show ship
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
     }
 

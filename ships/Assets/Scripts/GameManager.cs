@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         ships[10].GetComponent<ShipScript>().setPosition(1, 8, true);//1
         foreach(GameObject ship in ships)
         {
-            //ship.GetComponent<MeshRenderer>().enabled = false;
+            ship.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 

@@ -34,6 +34,8 @@ public class TileScript : MonoBehaviour
 
     public GameObject missilePrefab;
 
+    public GameObject firePrefab;
+
     Color m_OriginalColor;
 
     MeshRenderer m_Renderer;
@@ -127,6 +129,12 @@ public class TileScript : MonoBehaviour
                 // hit ship
                 Debug.Log("Strike ship! " + ship.name);
                 isShip = true;
+
+                // spawn fire
+                Vector3 tilePos = gameObject.transform.position;
+                tilePos.y += 0.3f;
+                Instantiate(firePrefab, tilePos, firePrefab.transform.rotation);
+
                 ship.GetComponent<ShipScript>().dealDamage();
 
                 m_Renderer.material.color = blueHit;
