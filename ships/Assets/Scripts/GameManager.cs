@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
 
     public TextMeshPro winnerBanner;
 
+    public GameObject fw1;
+
+    public GameObject fw2;
+
     public Color redColor;
 
     public Color blueColor;
@@ -28,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     bool transition = false;
     float timeLeft = 2f;
-    Vector3 targetPostion = new Vector3(10f, 5.86f, 6.61f);
+    Vector3 targetPostion = new Vector3(10f, 6.77f, 6.61f);
 
 
     // Start is called before the first frame update
@@ -116,6 +120,8 @@ public class GameManager : MonoBehaviour
             }
             winnerBanner.enabled = true;
             transition = true;
+            fw1.SetActive(true);
+            fw2.SetActive(true);
         }
     }
 
