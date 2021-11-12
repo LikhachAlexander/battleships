@@ -28,6 +28,7 @@ public class TileScript : MonoBehaviour
 
     public Color redHit;
 
+    public bool isHit = false;
 
     Color m_OriginalColor;
 
@@ -43,7 +44,6 @@ public class TileScript : MonoBehaviour
 
     float timeLeft;
 
-    bool isHit = false;
 
 
     void Start()
@@ -91,20 +91,48 @@ public class TileScript : MonoBehaviour
                     List<GameObject> shipTiles = ship.GetComponent<ShipScript>().shipTiles;
                     if (shipTiles.Contains(gameObject))
                     {
+                        // hit ship
                         Debug.Log("Strike ship! " + ship.name);
                         isShip = true;
+                        ship.GetComponent<ShipScript>().dealDamage();
+
                         m_Renderer.material.color = blueHit;
 
+                        // check if isDead
+                        if (ship.GetComponent<ShipScript>().isDead)
+                        {
+                            Debug.Log("Ship dead! " + ship.name);
+                            List<GameObject> shipNeighbourTiles = ship.GetComponent<ShipScript>().getNeighbourTiles();
+                            foreach(GameObject tile in shipNeighbourTiles)
+                            {
+                                if (!tile.GetComponent<TileScript>().isHit)
+                                {
+                                    tile.GetComponent<TileScript>().setGrey();
+                                }
+                            }
+                        }
                     }
                 }
                 if (!isShip)
                 {
                     // paint grey
-                    m_Renderer.material.color = grey;
+                    setGrey();
                 }
 
             }
         }
+    }
+
+    void setGrey()
+    {
+        isHit = true;
+
+        m_Renderer.material.color = grey;
+
+        letter_textMesh.color = l_OriginalColor;
+        digit_textMesh.color = l_OriginalColor;
+
+        transition = false;
     }
 
     void OnMouseExit()

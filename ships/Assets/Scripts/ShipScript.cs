@@ -119,6 +119,11 @@ public class ShipScript : MonoBehaviour
         }
     }
 
+    public List<GameObject> getNeighbourTiles()
+    {
+        return GetComponentInChildren<ShipBoxScript>().shipNeighbourTiles;
+    } 
+
     public void dealDamage()
     {
         hp--;
