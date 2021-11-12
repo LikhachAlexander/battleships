@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
 
     public GameObject[] ships;
+
+    public TextMeshPro header;
+
+    public Color redColor;
+
+    public Color blueColor;
+
+    public bool redTurn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +40,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    public void setRedTurn()
     {
-        
+        header.text = "Ход красных";
+        header.color = redColor;
+        redTurn = true;
+    }
+
+    public void setBlueTurn()
+    {
+        header.text = "Ход синих";
+        header.color = blueColor;
+        redTurn = false;
     }
 }
