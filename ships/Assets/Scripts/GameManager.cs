@@ -10,11 +10,20 @@ public class GameManager : MonoBehaviour
 
     public TextMeshPro header;
 
+    public TextMeshPro redPointsText;
+
+    public TextMeshPro bluePointsText;
+
     public Color redColor;
 
     public Color blueColor;
 
-    public bool redTurn = true;
+    public bool isRedTurn = true;
+
+    public int redPoints = 0;
+
+    public int bluePoints = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +47,7 @@ public class GameManager : MonoBehaviour
         {
             ship.GetComponent<MeshRenderer>().enabled = false;
         }
+        setRedTurn();
     }
 
     
@@ -45,13 +55,25 @@ public class GameManager : MonoBehaviour
     {
         header.text = "Ход красных";
         header.color = redColor;
-        redTurn = true;
+        isRedTurn = true;
     }
 
     public void setBlueTurn()
     {
         header.text = "Ход синих";
         header.color = blueColor;
-        redTurn = false;
+        isRedTurn = false;
+    }
+
+    public void increaseRed()
+    {
+        redPoints++;
+        redPointsText.text = redPoints.ToString();
+    }
+
+    public void increaseBlue()
+    {
+        bluePoints++;
+        bluePointsText.text = bluePoints.ToString();
     }
 }

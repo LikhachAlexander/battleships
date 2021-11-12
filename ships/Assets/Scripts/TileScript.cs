@@ -137,7 +137,17 @@ public class TileScript : MonoBehaviour
 
                 ship.GetComponent<ShipScript>().dealDamage();
 
-                m_Renderer.material.color = blueHit;
+
+                // paint team color 
+                if (gameManager.isRedTurn)
+                {
+                    m_Renderer.material.color = redHit;
+                    gameManager.increaseRed();
+                } else
+                {
+                    m_Renderer.material.color = blueHit;
+                    gameManager.increaseBlue();
+                }
 
                 // check if isDead
                 if (ship.GetComponent<ShipScript>().isDead)
