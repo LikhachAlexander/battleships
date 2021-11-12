@@ -161,6 +161,8 @@ public class TileScript : MonoBehaviour
                             tile.GetComponent<TileScript>().setGrey();
                         }
                     }
+                    // check game end
+                    gameManager.checkGameEnd();
                 }
             }
         }

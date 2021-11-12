@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshPro bluePointsText;
 
+    public TextMeshPro winnerBanner;
+
     public Color redColor;
 
     public Color blueColor;
@@ -23,6 +25,10 @@ public class GameManager : MonoBehaviour
     public int redPoints = 0;
 
     public int bluePoints = 0;
+
+    bool transition = false;
+    float timeLeft = 2f;
+    Vector3 targetPostion = new Vector3(10f, 7.5f, 10.95f);
 
 
     // Start is called before the first frame update
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour
         {
             ship.GetComponent<MeshRenderer>().enabled = false;
         }
+        winnerBanner.enabled = false;
         setRedTurn();
     }
 
@@ -75,5 +82,66 @@ public class GameManager : MonoBehaviour
     {
         bluePoints++;
         bluePointsText.text = bluePoints.ToString();
+    }
+
+
+    public bool isGameEnd()
+    {
+        bool gameEnd = true;
+        foreach (GameObject ship in ships)
+        {
+            if (!ship.GetComponent<ShipScript>().isDead)
+            {
+                gameEnd = false;
+            }
+        }
+        return gameEnd;
+
+    }
+
+    public void checkGameEnd()
+    {
+        if (isGameEnd())
+        {
+            if(redPoints > bluePoints)
+            {
+                Debug.Log("Победа красных!");
+                winnerBanner.text = "Победа\nкрасных";
+                winnerBanner.color = redColor;
+            } else
+            {
+                Debug.Log("Победа синих!");
+                winnerBanner.text = "Победа\nсиних";
+                winnerBanner.color = blueColor;
+            }
+            winnerBanner.enabled = true;
+            transition = true;
+        }
+    }
+
+    private void Update()
+    {
+        // banner movement
+        if (transition)
+        {
+            if (timeLeft <= Time.deltaTime)
+            {
+                // transition complete
+                // assign the target color
+
+                // start a new transition
+                winnerBanner.transform.position = targetPostion;
+                transition = false;
+            }
+            else
+            {
+                // transition in progress
+                // calculate interpolated color
+                winnerBanner.transform.position = Vector3.Lerp(winnerBanner.transform.position, targetPostion, Time.deltaTime / timeLeft);
+
+                // update the timer
+                timeLeft -= Time.deltaTime;
+            }
+        }
     }
 }
