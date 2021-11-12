@@ -13,11 +13,7 @@ public class ShipBoxScript : MonoBehaviour
         {
             shipNeighbourTiles.Add(col.gameObject);
 
-            // Print the entire list to the console.
-            foreach (GameObject gObject in shipNeighbourTiles)
-            {
-                print(gObject.name);
-            }
+            
         }
     }
 
@@ -28,11 +24,7 @@ public class ShipBoxScript : MonoBehaviour
             // Remove the GameObject collided with from the list.
             shipNeighbourTiles.Remove(col.gameObject);
 
-            // Print the entire list to the console.
-            foreach (GameObject gObject in shipNeighbourTiles)
-            {
-                print(gObject.name);
-            }
+           
         }
     }
 }

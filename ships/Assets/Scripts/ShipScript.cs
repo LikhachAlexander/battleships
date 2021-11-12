@@ -96,11 +96,7 @@ public class ShipScript : MonoBehaviour
         {
             shipTiles.Add(col.gameObject);
 
-            // Print the entire list to the console.
-            foreach (GameObject gObject in shipTiles)
-            {
-                print(gObject.name);
-            }
+            
         }
     }
 
@@ -111,11 +107,7 @@ public class ShipScript : MonoBehaviour
             // Remove the GameObject collided with from the list.
             shipTiles.Remove(col.gameObject);
 
-            // Print the entire list to the console.
-            foreach (GameObject gObject in shipTiles)
-            {
-                print(gObject.name);
-            }
+            
         }
     }
 

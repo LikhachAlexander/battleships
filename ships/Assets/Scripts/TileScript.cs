@@ -30,6 +30,10 @@ public class TileScript : MonoBehaviour
 
     public bool isHit = false;
 
+    [Header("Objects")]
+
+    public GameObject missilePrefab;
+
     Color m_OriginalColor;
 
     MeshRenderer m_Renderer;
@@ -79,45 +83,21 @@ public class TileScript : MonoBehaviour
                 isHit = true;
 
                 // reset colors
+                m_Renderer.material.color = m_OriginalColor;
                 letter_textMesh.color = l_OriginalColor;
                 digit_textMesh.color = l_OriginalColor;
 
                 transition = false;
 
-                // check if tile is in ship tiles
-                bool isShip = false;
-                foreach (GameObject ship in gameManager.ships)
-                {
-                    List<GameObject> shipTiles = ship.GetComponent<ShipScript>().shipTiles;
-                    if (shipTiles.Contains(gameObject))
-                    {
-                        // hit ship
-                        Debug.Log("Strike ship! " + ship.name);
-                        isShip = true;
-                        ship.GetComponent<ShipScript>().dealDamage();
+                // spawn missile
+                Vector3 tilePos = gameObject.transform.position;
+                tilePos.y += 15;
+                Instantiate(missilePrefab, tilePos, missilePrefab.transform.rotation);
 
-                        m_Renderer.material.color = blueHit;
 
-                        // check if isDead
-                        if (ship.GetComponent<ShipScript>().isDead)
-                        {
-                            Debug.Log("Ship dead! " + ship.name);
-                            List<GameObject> shipNeighbourTiles = ship.GetComponent<ShipScript>().getNeighbourTiles();
-                            foreach(GameObject tile in shipNeighbourTiles)
-                            {
-                                if (!tile.GetComponent<TileScript>().isHit)
-                                {
-                                    tile.GetComponent<TileScript>().setGrey();
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!isShip)
-                {
-                    // paint grey
-                    setGrey();
-                }
+                // start checking hit after missile landing
+                Invoke("checkHit", 1.8f);
+                
 
             }
         }
@@ -133,6 +113,44 @@ public class TileScript : MonoBehaviour
         digit_textMesh.color = l_OriginalColor;
 
         transition = false;
+    }
+
+    void checkHit()
+    {
+        // check if tile is in ship tiles
+        bool isShip = false;
+        foreach (GameObject ship in gameManager.ships)
+        {
+            List<GameObject> shipTiles = ship.GetComponent<ShipScript>().shipTiles;
+            if (shipTiles.Contains(gameObject))
+            {
+                // hit ship
+                Debug.Log("Strike ship! " + ship.name);
+                isShip = true;
+                ship.GetComponent<ShipScript>().dealDamage();
+
+                m_Renderer.material.color = blueHit;
+
+                // check if isDead
+                if (ship.GetComponent<ShipScript>().isDead)
+                {
+                    Debug.Log("Ship dead! " + ship.name);
+                    List<GameObject> shipNeighbourTiles = ship.GetComponent<ShipScript>().getNeighbourTiles();
+                    foreach (GameObject tile in shipNeighbourTiles)
+                    {
+                        if (!tile.GetComponent<TileScript>().isHit)
+                        {
+                            tile.GetComponent<TileScript>().setGrey();
+                        }
+                    }
+                }
+            }
+        }
+        if (!isShip)
+        {
+            // paint grey
+            setGrey();
+        }
     }
 
     void OnMouseExit()
