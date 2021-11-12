@@ -36,6 +36,8 @@ public class TileScript : MonoBehaviour
 
     public GameObject firePrefab;
 
+    public GameObject smallExplosionPrefab;
+
     Color m_OriginalColor;
 
     MeshRenderer m_Renderer;
@@ -96,7 +98,6 @@ public class TileScript : MonoBehaviour
                 tilePos.y += 15;
                 Instantiate(missilePrefab, tilePos, missilePrefab.transform.rotation);
 
-
                 // start checking hit after missile landing
                 Invoke("checkHit", 1.8f);
                 
@@ -119,6 +120,10 @@ public class TileScript : MonoBehaviour
 
     void checkHit()
     {
+        // spawn explosion
+        
+
+
         // check if tile is in ship tiles
         bool isShip = false;
         foreach (GameObject ship in gameManager.ships)
@@ -134,6 +139,7 @@ public class TileScript : MonoBehaviour
                 Vector3 tilePos = gameObject.transform.position;
                 tilePos.y += 0.3f;
                 Instantiate(firePrefab, tilePos, firePrefab.transform.rotation);
+                Instantiate(smallExplosionPrefab, tilePos, smallExplosionPrefab.transform.rotation);
 
                 ship.GetComponent<ShipScript>().dealDamage();
 

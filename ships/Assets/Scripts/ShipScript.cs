@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShipScript : MonoBehaviour
 {
 
+    public GameObject explosionPrefab;
+
     public int size;
     public int hp;
     public bool isDead = false;
@@ -124,6 +126,12 @@ public class ShipScript : MonoBehaviour
             isDead = true;
             // show ship
             gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            // show explosion
+            Vector3 shipPos = gameObject.transform.position;
+            shipPos.y += 1;
+
+            Instantiate(explosionPrefab, shipPos, explosionPrefab.transform.rotation);
         }
     }
 

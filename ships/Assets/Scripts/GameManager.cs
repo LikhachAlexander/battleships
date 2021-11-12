@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     bool transition = false;
     float timeLeft = 2f;
-    Vector3 targetPostion = new Vector3(10f, 7.5f, 10.95f);
+    Vector3 targetPostion = new Vector3(10f, 5.86f, 6.61f);
 
 
     // Start is called before the first frame update
