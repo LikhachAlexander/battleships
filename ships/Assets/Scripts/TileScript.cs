@@ -11,6 +11,7 @@ public class TileScript : MonoBehaviour
     public GameManager gameManager;
 
     [Header("Colors switch")]
+    [ColorUsage(true, true)]
 
     public Color switchColor;
 
@@ -22,10 +23,13 @@ public class TileScript : MonoBehaviour
 
     [Header("Colors hit")]
 
+    [ColorUsage(true, true)]
     public Color grey;
 
+    [ColorUsage(true, true)]
     public Color blueHit;
 
+    [ColorUsage(true, true)]
     public Color redHit;
 
     public bool isHit = false;
